@@ -3,9 +3,9 @@
         <Affix :offset-top="offsetTop" v-if="affix">
             <div class="i-editor-tabs">
                 <Tabs v-model="tabType" :animated="false" @on-click="handleChangeTab">
+					<TabPane :label="summaryName" name="summary" v-if="showSummary"></TabPane>
                     <TabPane :label="writeName" name="write"></TabPane>
                     <TabPane label="预览" name="preview"></TabPane>
-                    <TabPane label="写摘要" name="summary" v-if="showSummary"></TabPane>
                     <div class="i-editor-upload" slot="extra">
                         <Upload :config="config" :before-upload="beforeUpload" :styles="1" @on-success="handleUploadSuccess"></Upload>
                         <Upload :config="config" :styles="6" @on-success="handleImportMd"></Upload>
@@ -25,9 +25,9 @@
         </Affix>
         <div class="i-editor-tabs" v-else>
             <Tabs v-model="tabType" :animated="false" @on-click="handleChangeTab">
+				<TabPane :label="summaryName" name="summary" v-if="showSummary"></TabPane>
                 <TabPane :label="writeName" name="write"></TabPane>
                 <TabPane label="预览" name="preview"></TabPane>
-                <TabPane label="写摘要" name="summary" v-if="showSummary"></TabPane>
                 <div class="i-editor-upload" slot="extra">
                     <Upload :config="config" :before-upload="beforeUpload" :styles="1" @on-success="handleUploadSuccess"></Upload>
                     <Upload :config="config" :styles="6" @on-success="handleImportMd"></Upload>
@@ -64,7 +64,7 @@
             <div class="i-editor-wrapper" v-if="tabType === 'summary'">
                 <Input
                         v-model="summary"
-                        placeholder="摘要会在文章列表显示，只支持纯文本。"
+                        placeholder="描述"
                         type="textarea"
                         :autosize="{minRows: 6}"
                         ref="summary"
@@ -115,7 +115,10 @@
         >
             <div v-if="showDiff" class="i-editor-fullscreen-container">
                 <div slot="header" class="i-editor-fullscreen-header">
-                    <p>全屏编辑</p>
+					<div class="i-editor-fullscreen-header-menu">
+						<p>全屏编辑</p>
+					</div>
+                    
                     <div class="i-editor-fullscreen-header-tip">
                         <Upload :config="config" :before-upload="beforeUpload" :styles="1" @on-success="handleUploadSuccess"></Upload>
                         <Button type="text" size="small" class="i-editor-item" @click="showDiff = false">
@@ -165,11 +168,15 @@
                 type: String,
                 default: '内容'
             },
+			summaryName: {
+			    type: String,
+			    default: '题目描述'
+			},
             changeScroll: Boolean,
             cover: String,
             showSummary: {
                 type: Boolean,
-                default: false
+                default: true
             },
             config: {
                 type: Object,
@@ -204,7 +211,7 @@
             },
             paste: {
                 type: Boolean,
-                default: false
+                default: true
             }
         },
         data () {

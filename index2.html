@@ -5,32 +5,32 @@
     <title>iView Editor</title>
     <link rel="stylesheet" href="dist/iview.css">
     <link rel="stylesheet" href="dist/iview-editor.css">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         #app{
-            padding: 100px;
             height: 2000px;
-        }
-        .app{
-            width: 600px;
         }
     </style>
 </head>
 <body>
 <div id="app">
-    <div class="app">
-        <i-editor paste v-model="content" affix :write-name="wn" :summary-name="sn"  :config="config" :before-upload="beforeUpload" :img-url="imgUrl" :autosize="{minRows: 6}"></i-editor>
+    <div>
+        <i-full-editor :write-name="wname" paste v-model="content" affix  :config="config" :before-upload="beforeUpload"
+            :img-url="imgUrl" :autosize="{minRows: 6}"></i-full-editor>
     </div>
 </div>
     <script type="text/javascript" src="https://unpkg.com/vue@2.5.16/dist/vue.min.js"></script>
     <script type="text/javascript" src="/dist/iview.js"></script>
     <script type="text/javascript" src="/dist/iview-editor.js"></script>
+
     <script>
+        
         const app = new Vue({
+            
             el: '#app',
             data: {
-                content: '# hello world',
-				wn: '答案',
-				sn: '题目描述',
+                wname : 'haha',
+                content: 'hello world',
                 config: {
                     uploadForm: {
                         token: '',
@@ -57,9 +57,6 @@
                 imgUrl (res) {
                     // 上传成功后，如果是七牛等服务，需要自己构造完整的图片 url
                     return 'https://dev-file.iviewui.com/' + res.key + '/large';
-                },
-                highlight (code) {
-                    console.log(code);
                 }
             }
         });
