@@ -6,7 +6,7 @@
 </template>
 <script>
     import marked from 'marked';
-//    import hljs from 'highlightjs/highlight.pack.js';
+   import hljs from 'highlightjs/highlight.pack.js';
     import pinyinUtil from '../util/pinyin/pinyinUtil';
 
     export default {
@@ -39,7 +39,7 @@
                     breaks: true,
                     headerIds: false,
                     highlight (code) {
-                        return _this.highlight(code);
+                        return hljs.highlightAuto(code).value;
                     },
                     renderer: renderer
                 });

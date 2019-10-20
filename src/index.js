@@ -1,22 +1,20 @@
 import iEditor from './lib/components/editor.vue';
 import iFullEditor from './lib/components/full-editor.vue';
+import Preview from './lib/components/preview.vue';
 import hljs from 'highlightjs/highlight.pack.js'
 Vue.use(hljs)
 const iviewEditor = {
-    iEditor
+    iEditor,iFullEditor,Preview
 };
-const iviewFullEditor = {
-    iFullEditor
-};
+
 const installEditor = function(Vue, opts = {}) {
     Vue.component('i-editor', iEditor);
+	 Vue.component('i-full-editor', iFullEditor);
+	  Vue.component('i-preview', Preview);
 };
-const installFullEditor = function (Vue, opts = {}) {
-    Vue.component('i-full-editor', iFullEditor);
-};
+
 if (typeof window !== 'undefined' && window.Vue) {
     installEditor(window.Vue);
-    installFullEditor(window.Vue);
 }
 
-export default Object.assign({ iviewEditor, iviewFullEditor }, { installEditor, installFullEditor});
+export default Object.assign({ iviewEditor }, { installEditor});
