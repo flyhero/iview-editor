@@ -34,15 +34,36 @@
                 };
 
                 const _this = this;
+				const waitingHtml = marked(this.content, {
+				    breaks: true,
+				    headerIds: false,
+				    highlight (code) {
+				        return hljs.highlightAuto(code).value;
+				    },
+				    renderer: renderer
+				});
+				console.log('原文：'+waitingHtml);
+				const ary = waitingHtml.split('<pre>');
+				var res='';
+				for(var j = 0,len=ary.length; j < len; j++) {
+					console.log('内容：'+ary[j]);
+				    if (j != 0){
+						res = res + '<pre><a><i class="ivu-icon ivu-icon-md-copy" style="float:right;"></i></a>'+ary[j];
+					}else{
+						res = res + ary[j];
+					}
+				}
+				this.html=res;
 
-                this.html = marked(this.content, {
-                    breaks: true,
-                    headerIds: false,
-                    highlight (code) {
-                        return hljs.highlightAuto(code).value;
-                    },
-                    renderer: renderer
-                });
+                // this.html = marked(this.content, {
+                //     breaks: true,
+                //     headerIds: false,
+                //     highlight (code) {
+                //         return hljs.highlightAuto(code).value;
+                //     },
+                //     renderer: renderer
+                // });
+				// console.log('内容：'+res);
             }
         },
         mounted () {
