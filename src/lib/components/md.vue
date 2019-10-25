@@ -5,10 +5,23 @@
     </div>
 </template>
 <script>
+	
+	var s=[];
+	window.test = function (index) {
+	    alert(s[index]);
+		 var Url2=document.getElementById("biao1").innerText;
+		        var oInput = document.createElement('input');
+		        oInput.value = Url2;
+		        document.body.appendChild(oInput);
+		        oInput.select(); // 选择对象
+		        document.execCommand("Copy"); // 执行浏览器复制命令
+		        oInput.className = 'oInput';
+		        oInput.style.display='none';
+
+	}
     import marked from 'marked';
    import hljs from 'highlightjs/highlight.pack.js';
     import pinyinUtil from '../util/pinyin/pinyinUtil';
-
     export default {
         props: {
             content: String,
@@ -38,6 +51,7 @@
 				    breaks: true,
 				    headerIds: false,
 				    highlight (code) {
+						s.push(code);
 				        return hljs.highlightAuto(code).value;
 				    },
 				    renderer: renderer
@@ -48,7 +62,8 @@
 				for(var j = 0,len=ary.length; j < len; j++) {
 					console.log('内容：'+ary[j]);
 				    if (j != 0){
-						res = res + '<pre><a><i class="ivu-icon ivu-icon-md-copy" style="float:right;"></i></a>'+ary[j];
+						const k = j-1;
+						res = res + '<pre><a onclick="test('+k+')"><i class="ivu-icon ivu-icon-md-copy" style="float:right;"></i></a>'+ary[j];
 					}else{
 						res = res + ary[j];
 					}
